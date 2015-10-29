@@ -1,0 +1,15 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# TeX stuff
+
+*.pdf
+*.aux
+*.toc
+*.log
+*.dvi
+*.blg
+*.bbl
+
+*.results
