@@ -1,6 +1,8 @@
 ## The Predication Project
 
-This repo contains work relevant to RSA models of predication.
+This repo contains work relevant to RSA models of predication in service of developing a single RSA model of predication.
+
+"If semantics exists, it must say something about the meaning of predicative expressions (properties) and their nexus to subjects (predication)." -- [Chierchia 1985](http://www.jstor.org/stable/4178443)
 
 ### Existant predication models
 
