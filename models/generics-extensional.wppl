@@ -1,9 +1,9 @@
 // time webppl generics-extensional.wppl --require genericsUtils
 
 var subset = function(df, key, value){
-    return filter(function(d){
-        return (d[key]==value)
-    },df)
+  return filter(function(d){
+    return (d[key]==value)
+  },df)
 }
 
 
@@ -53,20 +53,20 @@ var world = [
 
 var allKinds = _.uniq(_.pluck(world, "kind"))
 var propertyDegrees = {"wings":"wings",
-                        "legs":"legs",
-                        "claws":"claws",
-                        "tall":"height"}
+                       "legs":"legs",
+                       "claws":"claws",
+                       "tall":"height"}
 
 var hasF = function(thing, property){
   return thing[property]
 }
 
 var prevalence = function(wrld, kind, property){
-    var members = subset(wrld, "kind", kind)
-    var v = filter(function(x){return hasF(x, property)}, members)
-    var mean =  v.length==0 ? 0.01 : sum(_.pluck(v, property)) / members.length
-    // round to nearest bin
-    return mean == 0.01 ? 0.01 : Math.floor(10*mean)/10
+  var members = subset(wrld, "kind", kind)
+  var v = filter(function(x){return hasF(x, property)}, members)
+  var mean =  v.length==0 ? 0.01 : sum(_.pluck(v, property)) / members.length
+  // round to nearest bin
+  return mean == 0.01 ? 0.01 : Math.floor(10*mean)/10
 }
 
 // init for reduce is 0.001 so that each state has > 0 prob
@@ -102,8 +102,8 @@ var thresholdPrior = function() {
 
 var utterancePrior = function(predicate) {
   var utterances = predicate == "height" ? 
-                      ["tall","null"] :
-                      ["generic", "null"]  
+      ["tall","null"] :
+  ["generic", "null"]  
   //    var utterances = ["generic is true",
   //                 "generic is false"]  
   return flip(0.5) ? utterances[0] : utterances[1]
@@ -153,45 +153,37 @@ var listener1 = cache(function(utterance, predicate, wrld) {
 })
 
 // speaker1(1, 0.9, scalePrior("height"), "height")
-
-
 // listener1("tall", "height")
 
 var worldWithTallness = map(function(thing){
+  var tallERP = Enumerate(function(){
+    var utterance = utterancePrior("height")
+    var tallnessPosterior = listener1(utterance, "height")
 
-      var tallERP = Enumerate(function(){
+    factor(tallnessPosterior.score([], thing["height"]))
 
-        var utterance = utterancePrior("height")
-        var tallnessPosterior = listener1(utterance, "height")
-      
-        factor(tallnessPosterior.score([], thing["height"]))
-      
-        return utterance
-      })
-
-      return _.extend(thing, {tall: Math.exp(tallERP.score([], "tall"))})
-    }, world)
+    return utterance
+  })
+  return _.extend(thing, {tall: Math.exp(tallERP.score([], "tall"))})
+}, world)
 
 var speaker2 = function(k, f){
   Enumerate(function(){
 
     var property = f.split(' ')[1]
     var degree = propertyDegrees[property]
-
-    var wrld = _.isNumber(world[0][f]) ? world : worldWithTallness
+    var wrld = _.isNumber(world[0][degree]) ? 
+                    worldWithTallness : world
 
     var prev = prevalence(wrld, k, property)
-
     var utterance = utterancePrior(property)
 
     var wL1 = listener1(utterance, property, wrld)
-
     factor(wL1.score([], prev))
-    var generic  = k + "s " + f
 
     return utterance=="generic" ?
-              generic :
-              "I don't think " + generic
+      k + "s " + f :
+    "I don't think " + k + "s " + f
 
   })
 }
