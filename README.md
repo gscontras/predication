@@ -10,7 +10,7 @@ This repo contains work relevant to RSA models of predication in service of deve
 | --- | --- | --- | --- | --- |
 | [Gradable adjectives](http://forestdb.org/models/adjectives.html) | single object | gradable adjective | infer threshold |  
 | [Plural predication](http://forestdb.org/models/plural-predication.html) | plurality | gradable adjective | infer interpretation |
-| [Generics](https://github.com/mhtess/generics) | category | property | coerce to threshold semantics |
+| [Generics](http://forestdb.org/models/generics.html) | category | property | coerce to threshold semantics |
 | [Hyperbole](http://forestdb.org/models/hyperbole.html) | single object | gradable adjective | infer state and valence |
 | [Metaphor](http://forestdb.org/models/metaphor.html) | single object | nominal | infer speaker goal |
 | [Scalar implicature](http://forestdb.org/models/scalar-implicature.html) | ?? | property | alternative utterances |
