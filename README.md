@@ -48,17 +48,7 @@ All of these may be either singular or plural.
 Predicates may ascribe **binary properties**, **gradable properties**, participation in **events**, or **generic** information.
 
 
-### Semantic composition
 
-Some options in the composition of meaning
-
-#### Treat predicates as such
-
-- A predicate takes its subject as an argument (via **Functional Application**)
-
-#### Treat predicates as properties; privilege predication
-
-- We need a special **predication** relation to do the work for us
 
 
 
